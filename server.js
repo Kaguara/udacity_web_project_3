@@ -32,14 +32,13 @@ function runServer(){
 
 //application routes
 app.get('/get_data', getProjectData);
+app.post('/post_data', postProjectData);
 
 //function to retrieve the projectData object
 function getProjectData(request, response){
     console.log('GET project data response data: ' + projectData);
     response.send(projectData);
 }
-
-app.post('/post_data', postProjectData);
 
 //function that adds the projectData to the route object (saves the data)
 function postProjectData(request, response){
@@ -51,4 +50,5 @@ function postProjectData(request, response){
     }
     console.log('New data being saved: ' + new_data);
     projectData.push(new_data);
+    response.send(projectData);
 }
