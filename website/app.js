@@ -56,15 +56,14 @@ function performAction(e){
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
       },
-      body: JSON.stringify({
-        temperature: data.temperature,
-        date: data.date,
-        user_response: data.user_response
-      }),       
+      body: JSON.stringify(data),       
     });
     if (!response.ok) throw Error(response.message);
+    if (response.ok) {
+      console.log("POST request success")
+    }
     
     try{
       const new_weather_data = await response.json();
