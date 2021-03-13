@@ -29,9 +29,9 @@ function performAction(e){
       const weather_data_response = postWeatherData('http://localhost:8000' + '/post_data', {temperature: data.main.temp, date: newDate, user_response: user_response_data});
       console.log('Response from POST request: ' + JSON.stringify(weather_data_response));
     })
-    .then(
+    .then(function(data){
       updateUI('http://localhost:8000' + '/get_data')
-    )
+    })
   }
 
   //client-side get weather data request
@@ -78,9 +78,14 @@ function performAction(e){
     const request = await fetch(url);
     try{
       const allData = await request.json();
-      document.getElementById('date').innerHTML = allData[0].date;
-      document.getElementById('temp').innerHTML = allData[0].temperature;
-      document.getElementById('content').innerHTML = allData[0].user_response;
+
+      console.log('GET date: ' + allData.date);
+      console.log('GET temperature: ' + allData.temperature);
+      console.log('GET user_response: ' + allData.user_response);
+
+      document.getElementById('date').innerHTML = allData.date;
+      document.getElementById('temp').innerHTML = allData.temperature;
+      document.getElementById('content').innerHTML = allData.user_response;
     }catch(error){
       console.log("error", error);
     }

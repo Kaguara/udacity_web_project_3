@@ -15,19 +15,19 @@ app.use(bodyParser.json());
 
 // Cors for cross origin allowance
 const cors = require('cors');
-app.use(cors);
+app.use(cors());
 
 // Initialize the main project folder
 app.use(express.static('website'));
 
 // Setup Server
 const port = 8000;
-app.listen(port, runServer);
+const server = app.listen(port, runServer);
 
 //function that executes when the server is run
 function runServer(){
     console.log("server running"); 
-    console.log(`running on localhost: ${port}`)
+    console.log(`running on localhost: ${port}`);
 }
 
 //application routes
@@ -35,20 +35,17 @@ app.get('/get_data', getProjectData);
 app.post('/post_data', postProjectData);
 
 //function to retrieve the projectData object
-function getProjectData(request, response){
-    console.log('GET project data response data: ' + projectData);
-    response.send(projectData);
+function getProjectData(req, res){
+    res.send(projectData);
 }
 
 //function that adds the projectData to the route object (saves the data)
-function postProjectData(request, response){
-    console.log('Hello from postProjectData function')
+function postProjectData(req, res){
     const new_data = {
-        temperature: request.body.temperature,
-        date: request.body.date,
-        user_response: request.body.user_response
-    }
-    console.log('New data being saved: ' + new_data);
-    projectData.push(new_data);
-    response.send(projectData);
+        temperature: req.body.temperature,
+        date: req.body.date,
+        user_response: req.body.user_response
+    };
+    projectData = new_data;
+    res.send(projectData);
 }
